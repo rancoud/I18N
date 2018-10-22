@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ruleset name="I18N">
+    <description>I18N</description>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <file>src</file>
+
+    <rule ref="PSR2"></rule>
+
+</ruleset>
