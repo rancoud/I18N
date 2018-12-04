@@ -10,25 +10,40 @@ composer require rancoud/i18n
 ```
 
 ## How to use it?
+You need a file `LANG.php` where LANG is the filename.  
+It will contains an array key values:  
 ```php
+return [
+    'Hello' => 'Bonjour'
+];
+```
+You have to set the default directory and language  
+```php
+$defaultDirectory = '/path/to/translations/';
+$defaultLanguage = 'en';
+I18N::setDefaults($directory, $defaultLanguage);
+```
+In action:  
+```php
+I18N::echo('Hello');
+// it will produce in output 'Hello'
 
+I18N::echo('another string');
+// it will produce in output 'another string' because the key doesn't exist in the file
+
+$string = I18N::get('Hello');
+// it will return 'Hello'
+
+// you can use different language file instead of the default one
+$string = I18N::get('string in other lang', 'es');
+// it will return the translation of 'string in other lang' present in the es.php file
 ```
 
-## I18N Constructor
-### Settings
-#### Mandatory
-| Parameter | Type | Description |
-| --- | --- | --- |
-|  |  |  |
-
-#### Optionnals
-| Parameter | Type | Default value | Description |
-| --- | --- | --- | --- |
-|  |  |  |  |
-
 ## I18N Methods
-### General Commands  
-* method(name: type, [optionnal: type = default]):outputType  
+### General static Commands  
+* setDefaults(directory: string, language: string):void  
+* echo(key: string, [language: string = null]):void  
+* get(key: string, [language: string = null]):string  
 
 ## How to Dev
 `./run_all_commands.sh` for php-cs-fixer and phpunit and coverage  
