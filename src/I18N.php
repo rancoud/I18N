@@ -23,7 +23,7 @@ class I18N
      */
     public static function setDefaults(string $directory, string $language): void
     {
-        if (!file_exists($directory) || !is_dir($directory)) {
+        if (!\file_exists($directory) || !\is_dir($directory)) {
             throw new I18NException(\sprintf('Directory %s not found', $directory));
         }
         static::$defaultDirectory = $directory;
@@ -68,7 +68,7 @@ class I18N
         }
 
         $filepath = static::$defaultDirectory . \DIRECTORY_SEPARATOR . $language . '.php';
-        if (!file_exists($filepath)) {
+        if (!\file_exists($filepath)) {
             throw new I18NException(\sprintf('Language %s not found', $language));
         }
 
