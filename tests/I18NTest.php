@@ -13,84 +13,93 @@ use Rancoud\I18N\I18N;
  */
 class I18NTest extends TestCase
 {
-    public function testDefaultsNotSet()
+    public function testDefaultsNotSet(): void
     {
-        static::expectException(I18NException::class);
-        static::expectExceptionMessage('Defaults not set');
+        $this->expectException(I18NException::class);
+        $this->expectExceptionMessage('Defaults not set');
 
         I18N::get('aaa');
     }
 
-    public function testDefaultsWrongDirectory()
+    public function testDefaultsWrongDirectory(): void
     {
-        static::expectException(I18NException::class);
-        static::expectExceptionMessage('Directory aaa not found');
+        $this->expectException(I18NException::class);
+        $this->expectExceptionMessage('Directory aaa not found');
 
         I18N::setDefaults('aaa', 'bbb');
     }
 
-    public function testDefaultsWrongLanguage()
+    public function testDefaultsWrongLanguage(): void
     {
-        static::expectException(I18NException::class);
-        static::expectExceptionMessage('Language bbb not found');
+        $this->expectException(I18NException::class);
+        $this->expectExceptionMessage('Language bbb not found');
 
         I18N::setDefaults(__DIR__, 'bbb');
     }
 
-    public function testDefaults()
+    /**
+     * @throws I18NException
+     */
+    public function testDefaults(): void
     {
         I18N::setDefaults(__DIR__, 'en');
-        $a = I18N::get('a');
-        static::assertSame('a', $a);
+        static::assertSame('a', I18N::get('a'));
     }
 
-    public function testEchoDefault()
+    /**
+     * @throws I18NException
+     */
+    public function testEchoDefault(): void
     {
         I18N::setDefaults(__DIR__, 'en');
         ob_start();
         I18N::echo('start');
-        $a = ob_get_contents();
-        ob_end_clean();
-        static::assertSame('Hello', $a);
+        static::assertSame('Hello', ob_get_clean());
     }
 
-    public function testGetDefault()
+    /**
+     * @throws I18NException
+     */
+    public function testGetDefault(): void
     {
         I18N::setDefaults(__DIR__, 'en');
-        $a = I18N::get('stop');
-        static::assertSame('Goodbye', $a);
+        static::assertSame('Goodbye', I18N::get('stop'));
     }
 
-    public function testEchoFr()
+    /**
+     * @throws I18NException
+     */
+    public function testEchoFr(): void
     {
         I18N::setDefaults(__DIR__, 'en');
         ob_start();
         I18N::echo('start', 'fr');
-        $a = ob_get_contents();
-        ob_end_clean();
-        static::assertSame('Bonjour', $a);
+        static::assertSame('Bonjour', ob_get_clean());
     }
 
-    public function testGetFr()
+    /**
+     * @throws I18NException
+     */
+    public function testGetFr(): void
     {
         I18N::setDefaults(__DIR__, 'en');
         $a = I18N::get('stop', 'fr');
         static::assertSame('Au revoir', $a);
     }
 
-    public function testEchoMissingLang()
+    public function testEchoMissingLang(): void
     {
-        static::expectException(I18NException::class);
-        static::expectExceptionMessage('Language jp not found');
+        $this->expectException(I18NException::class);
+        $this->expectExceptionMessage('Language jp not found');
 
         I18N::setDefaults(__DIR__, 'en');
         I18N::echo('a', 'jp');
     }
 
-    public function testGetMissingLang()
+    public function testGetMissingLang(): void
     {
-        static::expectException(I18NException::class);
-        static::expectExceptionMessage('Language jp not found');
+        $this->expectException(I18NException::class);
+        $this->expectExceptionMessage('Language jp not found');
 
         I18N::setDefaults(__DIR__, 'en');
         I18N::get('a', 'jp');
