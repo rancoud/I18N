@@ -9,11 +9,11 @@ namespace Rancoud\I18N;
  */
 class I18N
 {
-    protected static $defaultDirectory = null;
+    protected static ?string $defaultDirectory = null;
 
-    protected static $defaultLanguage = null;
+    protected static ?string $defaultLanguage = null;
 
-    protected static $langs = [];
+    protected static array $langs = [];
 
     /**
      * @param string $directory
@@ -103,6 +103,6 @@ class I18N
             static::getLangContent($language);
         }
 
-        return isset(static::$langs[$language][$key]) ? static::$langs[$language][$key] : $key;
+        return static::$langs[$language][$key] ?? $key;
     }
 }
